@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns:th="thymeleaf.org">
+
+	<head>
+
+		<title>Listado de Productos</title>
+
+	</head>
+
+	<body bgcolor="#EDE1F5">
+
+		<h1 align="center">Listado de Productos</h1>
+
+		
+
+		<h2 align="center">
+
+			<a th:href="@{RegistrarProducto}" th:text="'nuevo registro'"
+
+			 title="crear nuevo registro" class="btn btn-success"></a>
+
+		</h2>
+
+		<table align="center" border="2">
+
+			<tr>
+
+				<th>CODIGO</th>
+				<th>NOMBRE</th>
+				<th>PRECIO VENTA</th>
+				<th>STOCK</th>
+				<th>PRECIO COMPRA</th>
+				<th>ESTADO</th>
+				<th>DESCRIPCION</th>
+
+				<th colspan="2">Acciones</th>
+
+			</tr>
+
+			<th:block th:each="p:${listado}">
+
+				<tr>
+
+					<td th:text="${p.IDPRODUCTOCL3}"></td>
+					<td th:text="${p.NOMBRECL3}"></td>
+					<td th:text="${p.PRECIOVENTACL3  }"></td>
+					<td th:text="${p.STOCK}"></td>
+					<td th:text="${p.PRECIOCOMPCL3}"></td>
+					<td th:text="${p.ESTADOCL3}"></td>
+					<td th:text="${p.DESCRIPCL3}"></td>
+								
+					<td><a th:href="@{editar/}+${p.IDPRODUCTOCL3}" th:text="Editar" 
+
+					title="Editar Registro" class="btn btn-primary"></a></td>
+
+					<td>
+
+						<a th:href="@{eliminar/}+${p.IDPRODUCTOCL3}" th:text="Eliminar"
+						class="btn btn-warning"></a>					
+
+					</td>
+
+				</tr>				
+
+			</th:block>
+
+			
+
+		</table>>
+		
+
+	</body>
+
+	
+
+</html>

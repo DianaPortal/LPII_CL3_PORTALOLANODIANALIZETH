@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bd.basico.modelo.TBL_PRODUCTOCL3;
 import com.bd.basico.servicio.IProductoServicio;
@@ -16,6 +17,8 @@ import com.bd.basico.servicio.IProductoServicio;
 
 
 @Controller
+@RequestMapping("/vistas")
+
 public class productosControlador {
 	
 	//inyeccion de dependencia...
@@ -26,9 +29,9 @@ public class productosControlador {
 
 			//creamos el metodo listado..
 
-			@GetMapping("ListadoProductos")
+			@GetMapping("/ListadoProductos")
 
-			public String ListadoAuto(Model modelo) {
+			public String ListadoProductos(Model modelo) {
 
 				//recuperamos el listado de autos..
 
@@ -41,7 +44,9 @@ public class productosControlador {
 								" PRECIO VENTA "+lis.getPRECIOVENTACL3()+" "+
 								" STOCK "+lis.getSTOCK()+" "+
 								" PRECIO COMPRA "+lis.getPRECIOCOMPCL3()+" "+
-								" ESTADO "+lis.getDESCRIPCL3());
+								" ESTADO "+lis.getESTADOCL3()+" "+
+								" DESCRIPCION "+lis.getDESCRIPCL3()
+								);
 
 				}
 
@@ -51,7 +56,7 @@ public class productosControlador {
 
 				//retornamos
 
-				return "/Vistas/ListadoAuto";
+				return "/vistas/ListadoProductos";
 
 				
 
@@ -74,7 +79,8 @@ public class productosControlador {
 
 				//retornamos
 
-				return "/Vistas/FrmCrearProducto";
+				return "/vistas/RegistrarProducto";
+
 			}  //fin del metodo registrar.
 			
 			
@@ -83,7 +89,7 @@ public class productosControlador {
 
 			@PostMapping("/GuardarProducto")
 
-			public String GuardarAuto(@ModelAttribute TBL_PRODUCTOCL3  producto,Model modelo) {
+			public String GuardarProducto(@ModelAttribute TBL_PRODUCTOCL3  producto,Model modelo) {
 
 				iproductoservicio.RegistrarProducto(producto);
 
@@ -91,7 +97,7 @@ public class productosControlador {
 
 				//retornamos al listado...
 
-				return "redirect:/Vistas/ListadoProductos";	
+				return "redirect:/vistas/ListadoProductos";
 
 			}  //fin del metodo string...
 			
@@ -109,32 +115,16 @@ public class productosControlador {
 
 				//retornamos el frmcrearcliente...
 
-				return "/Vistas/FrmCrearProducto";	
+				return "/vistas/RegistrarProducto";
+
 
 			}  //fin del metodo editar...
-		 
-			public String eliminar(@PathVariable("id") Integer idProducto,Model modelo) {
-
-				
-
-				//aplicamos inyeccion de dependencia...
-
-				iproductoservicio.Eliminar(idProducto);
-
-				//actulizar el listado
-
-				List<TBL_PRODUCTOCL3> listado=iproductoservicio.ListadoProductos();
-
-				//enviamos a la vista
-
-				modelo.addAttribute("listado",listado);
-
-				//redireccionamos
-
-				return "redirect:/Vistas/ListadoProductos";		
-
-			}   //fin del metodo eliminar...
-
+			
+			@GetMapping("/eliminar/{id}")
+		    public String eliminar(@PathVariable("id") Integer idProducto, Model modelo) {
+		        iproductoservicio.Eliminar(idProducto);
+		        return "redirect:/vistas/ListadoProductos";
+		    }
 	
 	
 	}//fin del metodo 

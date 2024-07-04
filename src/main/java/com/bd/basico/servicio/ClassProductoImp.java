@@ -3,9 +3,15 @@ package com.bd.basico.servicio;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bd.basico.modelo.TBL_PRODUCTOCL3;
 import com.bd.basico.repositorio.IProductoRepositorio;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 
 public class ClassProductoImp implements IProductoServicio{
 	//aplicamos la inyeccion de dependencia 
